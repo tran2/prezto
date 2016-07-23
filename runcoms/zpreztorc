@@ -27,6 +27,7 @@ zstyle ':prezto:*:*' color 'yes'
 # Set the Prezto modules to load (browse modules).
 # The order matters.
 zstyle ':prezto:load' pmodule \
+  'osx' \
   'environment' \
   'terminal' \
   'editor' \
@@ -118,7 +119,7 @@ zstyle ':prezto:module:editor' key-bindings 'vi'
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
-zstyle ':prezto:module:prompt' theme 'powerline'
+zstyle ':prezto:module:prompt' theme 'agnoster'
 
 # Set the working directory prompt display length.
 # By default, it is set to 'short'. Set it to 'long' (without '~' expansion)
@@ -214,6 +215,7 @@ zstyle ':prezto:module:prompt' theme 'powerline'
 # zstyle ':prezto:module:tmux:auto-start' remote 'yes'
 
 # Integrate with iTerm2.
+<<<<<<< HEAD
 # zstyle ':prezto:module:tmux:iterm' integrate 'yes'
 
 # Set the default session name:
@@ -227,3 +229,6 @@ zstyle ':prezto:module:prompt' theme 'powerline'
 # before deleting or overwriting files. Set to 'no' to disable this safer
 # behavior.
 # zstyle ':prezto:module:utility' safe-ops 'yes'
+=======
+zstyle ':prezto:module:tmux:iterm' integrate 'yes'
+>>>>>>> e225233... update tmux conf and vimrc

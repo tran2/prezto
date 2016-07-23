@@ -11,3 +11,15 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+# set this so zprezto theme won't display myname@machine
+export DEFAULT_USER=`whoami`
+
+# Path for npm
+PATH=$PATH:${ZDOTDIR:-$HOME}/.npm-packages/bin
+export PATH
+
+source "${ZDOTDIR:-$HOME}/.bashrc"
+
+alias vi="vim"
+

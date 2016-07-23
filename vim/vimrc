@@ -1,37 +1,97 @@
 " from thoughtbot
 let mapleader = " "
 
-set backspace=2
+" switch between last file and current file
+nnoremap <leader><leader> <c-^>
+" turn off search highlight
+" Y = Yank to EOL like C and D
+map Y y$
+
+set backspace=indent,eol,start
+set autoindent
+set nostartofline
+set cmdheight=2
 set nobackup
 set nowritebackup
 set noswapfile 
 set history=50
-set ruler
-
 set autowrite
+
+set ruler
 set laststatus=2
+set rulerformat=%l\:%c 
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l\:%c%V%)
 
 set tabstop=2
 set shiftwidth=2
 set shiftround
 set expandtab
 
-" display whitespace
+" show the 80 characters ruler
+set textwidth=80
+set colorcolumn=+1
+set formatoptions=qrn1
+highlight ColorColumn ctermbg=3
 
+" numbers
+set number
+set numberwidth=5
+
+" new split window will be bottom or right (instead of top and left)
+set splitbelow
+set splitright
+" Ctrl + jkhl to move around windows
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+set switchbuf=usetab,newtab
+syntax on
+
+" display whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
 
 " one space after punctuation
 set nojoinspaces
 
-" vundle
+" command lines
+set wildmenu
+set showcmd
+
+" searches
+set hlsearch
+" ignore cases unless caps
+set ignorecase
+set smartcase
+
+" vundle plugins
+" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 set nocompatible
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'scrooloose/nerdtree'
+Plugin 'valloric/YouCompleteMe'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'godlygeek/tabular'
+Plugin 'heavenshell/vim-jsdoc'
 
+Plugin 'christoomey/vim-run-interactive'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'fatih/vim-go'
+" Plugin 'janko-m/vim-test'
+Plugin 'pbrisbin/vim-mkdir'
+Plugin 'scrooloose/syntastic'
+Plugin 'slim-template/vim-slim'
+Plugin 'tpope/vim-eunuch'
 Plugin 'tpope/vim-fugitive'
-
+Plugin 'tpope/vim-projectionist'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-rhubarb'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/tComment'
 call vundle#end()
 filetype plugin indent on
 " end vundle
@@ -47,11 +107,12 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 
-set textwidth=80
-set colorcolumn=+1
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
-" numbers
-set number
-set numberwidth=5
-
-
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
