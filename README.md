@@ -47,8 +47,8 @@ version is 4.3.11.
 
   5. Open a new Zsh terminal window or tab.
 
-Mac
----
+Mac & Windows
+-------------
 Install fonts at https://github.com/powerline/fonts
 Use powerline fonts
 
