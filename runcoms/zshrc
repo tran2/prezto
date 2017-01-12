@@ -19,7 +19,7 @@ export DEFAULT_USER=`whoami`
 PATH=$PATH:${ZDOTDIR:-$HOME}/.npm-packages/bin
 export PATH
 
-# source "${ZDOTDIR:-$HOME}/.bashrc"
+source "${ZDOTDIR:-$HOME}/.zshrc.local"
 
-alias vi="vim"
+alias vi="nvim"
 
