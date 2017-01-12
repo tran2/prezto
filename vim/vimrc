@@ -47,7 +47,7 @@ set splitright
 " nnoremap <C-k> <C-w>k
 " nnoremap <C-h> <C-w>h
 " nnoremap <C-l> <C-w>l
-"
+
 set switchbuf=usetab,newtab
 syntax on
 
@@ -70,6 +70,7 @@ set smartcase
 "-------------------------------------------------------------------------------
 " Plugin Settings
 "-------------------------------------------------------------------------------
+
 if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
@@ -92,6 +93,7 @@ let g:syntastic_loc_list_height = 3
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
+
 " m - meta key 
 let g:yankring_replace_n_pkey = '<m-p>'
 let g:yankring_replace_n_nkey = '<m-n>'
@@ -109,6 +111,28 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 autocmd FileType javascript UltiSnipsAddFiletypes javascript-jasmine
 
+" neomake
+" for neovim (nvim), using neomake to take advantage of asynchronous jobs
+" Run NeoMake on read and write operations
+" autocmd! BufReadPost,BufWritePost * Neomake
+" let g:neomake_open_list = 2
+" let g:neomake_javascript_enabled_makers = ['eslint']
+" let g:neomake_jsx_enabled_makers = ['eslint']
+" let g:neomake_javascript_eslint_exe = system('PATH=$(npm bin):$PATH && which eslint | tr -d "\n"')
+" let g:neomake_verbose = 3
+
+" Disable inherited syntastic
+" let g:syntastic_mode_map = {
+"     \ "mode": "passive",
+"     \ "active_filetypes": [],
+"     \ "passive_filetypes": [] }
+
+let g:neomake_serialize = 1
+let g:neomake_serialize_abort_on_error = 1
+
+" js syntax
+let g:used_javascript_libs = 'jasmine,chai,react'
+
 "-------------------------------------------------------------------------------
 " vundle plugins
 "-------------------------------------------------------------------------------
@@ -118,6 +142,7 @@ filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'neomake/neomake'
 Plugin 'scrooloose/nerdtree'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'jiangmiao/auto-pairs'
@@ -146,12 +171,16 @@ Plugin 'tpope/vim-surround'
 Plugin 'vim-scripts/tComment'
 " TODO: add short key to execute YRShow
 Plugin 'vim-scripts/YankRing.vim'
-Plugin 'othree/yajs.vim'
+" Plugin 'othree/yajs.vim'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'ervandew/supertab'
 Plugin 'valloric/YouCompleteMe'
 " snippet engine
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
+" ctags remember to install on systeM
+Plugin 'craigemery/vim-autotag'
 call vundle#end()
 filetype plugin indent on
 " end vundle
