@@ -4,6 +4,9 @@ let mapleader = " "
 " switch between last buffer and current buffer by double tap space 
 nnoremap <leader><leader> <c-^>
 
+" so that yy, D, P will work with clipboard! 
+set clipboard=unnamed
+
 " Y = Yank to EOL like C and D
 map Y y$
 
@@ -11,6 +14,7 @@ set backspace=indent,eol,start
 set autoindent
 set nofoldenable
 set nostartofline
+" change for cmd height
 set cmdheight=2
 set nobackup
 set nowritebackup
@@ -75,6 +79,7 @@ if executable('ag')
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
 
+  " ag takes in ~/.agignore first
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
   let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
 
@@ -109,7 +114,7 @@ let g:UltiSnipsExpandTrigger="<tab>"
 " name :)
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-autocmd FileType javascript UltiSnipsAddFiletypes javascript-jasmine
+" autocmd FileType javascript UltiSnipsAddFiletypes javascript-jasmine
 
 " neomake
 " for neovim (nvim), using neomake to take advantage of asynchronous jobs
@@ -129,9 +134,24 @@ autocmd FileType javascript UltiSnipsAddFiletypes javascript-jasmine
 
 let g:neomake_serialize = 1
 let g:neomake_serialize_abort_on_error = 1
+" vue syntastic
+let g:syntastic_vue_checkers = ['eslint']
+let local_eslint = finddir('node_modules', '.;') . '/.bin/eslint'
+if matchstr(local_eslint, "^\/\\w") == ''
+  let local_eslint = getcwd() . "/" . local_eslint
+endif
+if executable(local_eslint)
+  let g:syntastic_vue_eslint_exec = local_eslint
+endif
 
 " js syntax
 let g:used_javascript_libs = 'jasmine,chai,react'
+
+" on MAC, this is the python used to compile ycm
+let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
+
+" bash support output redirection
+let g:BASH_OutputGvim            = "buffer"
 
 "-------------------------------------------------------------------------------
 " vundle plugins
@@ -155,8 +175,10 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'fatih/vim-go'
 " Plugin 'janko-m/vim-test'
 Plugin 'pbrisbin/vim-mkdir'
-Plugin 'mtscout6/syntastic-local-eslint.vim'
+Plugin 'tran2/syntastic-local-eslint.vim'
 Plugin 'scrooloose/syntastic'
+Plugin 'posva/vim-vue'
+Plugin 'sekel/vim-vue-syntastic'
 Plugin 'slim-template/vim-slim'
 " use [  ] such as [l ]l for :lnext :lprev type :help unimpaired
 Plugin 'tpope/vim-unimpaired'
@@ -168,7 +190,7 @@ Plugin 'tpope/vim-projectionist'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-surround'
-Plugin 'vim-scripts/tComment'
+Plugin 'tomtom/tcomment_vim'
 " TODO: add short key to execute YRShow
 Plugin 'vim-scripts/YankRing.vim'
 " Plugin 'othree/yajs.vim'
@@ -177,10 +199,18 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'ervandew/supertab'
 Plugin 'valloric/YouCompleteMe'
 " snippet engine
-Plugin 'SirVer/ultisnips'
+" Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 " ctags remember to install on systeM
+" ctags . - to generate ctags
+" C-] to go to def, C-t to go back
 Plugin 'craigemery/vim-autotag'
+" \si
+" ctrl+j to jump to next block
+Plugin 'WolfgangMehner/bash-support'
+" fast html/css coding <c-y>,
+" https://raw.githubusercontent.com/mattn/emmet-vim/master/TUTORIAL
+Plugin 'mattn/emmet-vim'
 call vundle#end()
 filetype plugin indent on
 " end vundle
