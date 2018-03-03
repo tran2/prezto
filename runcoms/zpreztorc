@@ -215,8 +215,7 @@ zstyle ':prezto:module:prompt' theme 'agnoster'
 # zstyle ':prezto:module:tmux:auto-start' remote 'yes'
 
 # Integrate with iTerm2.
-<<<<<<< HEAD
-# zstyle ':prezto:module:tmux:iterm' integrate 'yes'
+zstyle ':prezto:module:tmux:iterm' integrate 'yes'
 
 # Set the default session name:
 # zstyle ':prezto:module:tmux:session' name 'YOUR DEFAULT SESSION NAME'
@@ -229,6 +228,3 @@ zstyle ':prezto:module:prompt' theme 'agnoster'
 # before deleting or overwriting files. Set to 'no' to disable this safer
 # behavior.
 # zstyle ':prezto:module:utility' safe-ops 'yes'
-=======
-zstyle ':prezto:module:tmux:iterm' integrate 'yes'
->>>>>>> e225233... update tmux conf and vimrc
