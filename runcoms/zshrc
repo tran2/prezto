@@ -16,10 +16,13 @@ fi
 export DEFAULT_USER=`whoami`
 
 # Path for npm
-PATH=$PATH:${ZDOTDIR:-$HOME}/.npm-packages/bin
-export PATH
+# PATH=$PATH:${ZDOTDIR:-$HOME}/.npm-packages/bin
+# export PATH
 
 source "${ZDOTDIR:-$HOME}/.zshrc.local"
 
 alias vi="nvim"
 
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
