@@ -106,8 +106,8 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " autocmd FileType javascript UltiSnipsAddFiletypes javascript-jasmine
 
-let g:neomake_serialize = 1
-let g:neomake_serialize_abort_on_error = 1
+" let g:neomake_serialize = 1
+" let g:neomake_serialize_abort_on_error = 1
 
 " js syntax
 let g:used_javascript_libs = 'jasmine,chai,react'
@@ -149,7 +149,7 @@ filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-Plugin 'neomake/neomake'
+" Plugin 'neomake/neomake'
 Plugin 'scrooloose/nerdtree'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'jiangmiao/auto-pairs'
@@ -163,6 +163,7 @@ Plugin 'fatih/vim-go'
 " Plugin 'janko-m/vim-test'
 Plugin 'pbrisbin/vim-mkdir'
 Plugin 'posva/vim-vue'
+Plugin 'vim-scripts/vim-stylus'
 Plugin 'slim-template/vim-slim'
 " use [  ] such as [l ]l for :lnext :lprev type :help unimpaired
 Plugin 'tpope/vim-unimpaired'
@@ -202,6 +203,8 @@ Plugin 'Shougo/denite.nvim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'w0rp/ale'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'tpope/vim-obsession'
 call vundle#end()
 filetype plugin indent on
 " end vundle
