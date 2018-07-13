@@ -2,16 +2,20 @@
 " profile! file */syntastic/*
 " from thoughtbot
 " :verbose imap <tab>
-let mapleader = " "
-" switch between last buffer and current buffer by double tap space 
-nnoremap <leader><leader> <c-^>
 
 " so that yy, D, P will work with clipboard! 
 set clipboard=unnamed
 
+let mapleader = " "
+" map Leader to plugin since it uses <Leader><Leader> by default
+map <Leader> <Plug>(easymotion-prefix)
+" switch between last buffer and current buffer by double tap space 
+map <leader><leader> <c-^>
+
 " Y = Yank to EOL like C and D
 map Y y$
-
+" space+enter to enter current line without going into insert mode
+map <Leader><CR> i<CR><Esc>
 set backspace=indent,eol,start
 set autoindent
 set nofoldenable
@@ -88,32 +92,49 @@ if executable('ag')
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|.git'
+
+" fzf
+let $FZF_DEFAULT_COMMAND =  "find * -path '*/\.*' -prune -o -path 'node_modules/**' -prune -o -path 'target/**' -prune -o -path 'dist/**' -prune -o  -type f -print -o -type l -print 2> /dev/null"
+" if executable('ag')
+"   let $FZF_DEFAULT_COMMAND = 'ag --hidden --ignore .git -g ""'
+" endif
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+
+
+  " <leader>r will search word under the cursor
+  command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --ignore-case --hidden '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+  nmap <leader>r "zyiw:exe"Rg ".@z.""<cr>
+endif
+nnoremap <C-P> :FZF -m<CR>
+nnoremap ; :Buffers<CR>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+let g:fzf_tags_command = 'ctags -R'
+
 
 " m - meta key 
 let g:yankring_replace_n_pkey = '<m-p>'
 let g:yankring_replace_n_nkey = '<m-n>'
 
-" make YCM compatible with UltiSnips (using supertab)
-" fun<tab> will use snippet function, ctrl-n to cycle down the list
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-let g:SuperTabDefaultCompletionType = '<C-n>'
-" better key bindings for UltiSnipsExpandTrigger (use tab)
-let g:UltiSnipsExpandTrigger="<tab>"
-" jump to next block in snippet fun<tab> then <tab> will jump cursor to function
-" name :)
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-" autocmd FileType javascript UltiSnipsAddFiletypes javascript-jasmine
-
-" let g:neomake_serialize = 1
-" let g:neomake_serialize_abort_on_error = 1
+" let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " js syntax
 let g:used_javascript_libs = 'jasmine,chai,react'
 
 " on MAC, this is the python used to compile ycm
-let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+let g:ycm_path_to_python_interpreter='/usr/local/bin/python3'
+let g:ycm_server_python_interpreter='/usr/local/bin/python3'
 
 " bash support output redirection
 let g:BASH_OutputGvim            = "buffer"
@@ -122,90 +143,129 @@ let g:BASH_OutputGvim            = "buffer"
 map <C-n> :NERDTreeToggle<CR>
 
 " grepper fb for project search, fb for buffer search
-nnoremap <Leader>fp :Grepper<Space>-query<Space>
-nnoremap <Leader>fb :Grepper<Space>-buffers<Space>-query<Space>-<Space>
+" nnoremap <Leader>fp :Grepper<Space>-query<Space>
+" nnoremap <Leader>fb :Grepper<Space>-buffers<Space>-query<Space>-<Space>
 
 " enable smarter tab line (show buffers when only one tab is open)
 let g:airline#extensions#tabline#enabled = 1
 
-" Go to tab by number
-noremap <leader>1 1gt
-noremap <leader>2 2gt
-noremap <leader>3 3gt
-noremap <leader>4 4gt
-noremap <leader>5 5gt
-noremap <leader>6 6gt
-noremap <leader>7 7gt
-noremap <leader>8 8gt
-noremap <leader>9 9gt
-noremap <leader>0 :tablast<cr>
+" deoplete
+let g:python2_host_prog = '/usr/local/bin/python'
+let g:python3_host_prog = '/usr/local/bin/python3'
+let g:deoplete#enable_at_startup = 1
+
+inoremap jk <Esc>
+
+" deoplete
+"Add extra filetypes
+let g:deoplete#sources#ternjs#filetypes = [
+                \ 'jsx',
+                \ 'javascript.jsx',
+                \ 'vue',
+                \ '...'
+                \ ]
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.javascript = [
+  \ 'tern#Complete',
+  \ 'jspc#omni'
+\]
+set completeopt=longest,menuone,preview
+let g:deoplete#sources = {}
+let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips', 'ternjs']
+let g:tern#command = ['tern']
+let g:tern#arguments = ['--persistent']
+autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:UltiSnipsExpandTrigger="<C-j>"
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+" close the preview window when you're not using it
+let g:SuperTabClosePreviewOnPopupClose = 1
+" or just disable the preview entirely
+set completeopt-=preview
+
+" ale
+nmap <silent> <Leader>N <Plug>(ale_previous_wrap)
+nmap <silent> <Leader>n <Plug>(ale_next_wrap)
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['prettier-eslint']
+" let g:ale_fix_on_save = 1
 
 "-------------------------------------------------------------------------------
-" vundle plugins
+" vim-plug plugins
 "-------------------------------------------------------------------------------
-" git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-set nocompatible
-filetype off
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" Plugin 'neomake/neomake'
-Plugin 'scrooloose/nerdtree'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'jiangmiao/auto-pairs'
+" ~/.config/nvim/plugged
+" curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+"    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+call plug#begin()
+" Plug 'neomake/neomake'
+Plug 'scrooloose/nerdtree'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'jiangmiao/auto-pairs'
 " Tabularize /= to align =
-Plugin 'godlygeek/tabular'
-Plugin 'heavenshell/vim-jsdoc'
-Plugin 'christoomey/vim-run-interactive'
+Plug 'godlygeek/tabular'
+Plug 'heavenshell/vim-jsdoc'
+Plug 'christoomey/vim-run-interactive'
 " use ctrl+p ctrl+f to switch buffer
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'fatih/vim-go'
-" Plugin 'janko-m/vim-test'
-Plugin 'pbrisbin/vim-mkdir'
-Plugin 'posva/vim-vue'
-Plugin 'vim-scripts/vim-stylus'
-Plugin 'slim-template/vim-slim'
+" Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'fatih/vim-go'
+" Plug 'janko-m/vim-test'
+Plug 'pbrisbin/vim-mkdir'
+Plug 'posva/vim-vue'
+Plug 'vim-scripts/vim-stylus'
+Plug 'slim-template/vim-slim'
 " use [  ] such as [l ]l for :lnext :lprev type :help unimpaired
-Plugin 'tpope/vim-unimpaired'
+" use [  ] such as [b ]b for buffers switching :help unimpaired
+Plug 'tpope/vim-unimpaired'
 " navigate split same with tmux ctrl hjkl
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-projectionist'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-rhubarb'
-Plugin 'tpope/vim-surround'
-Plugin 'tomtom/tcomment_vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-surround'
+Plug 'tomtom/tcomment_vim'
 " TODO: add short key to execute YRShow
-Plugin 'vim-scripts/YankRing.vim'
-" Plugin 'othree/yajs.vim'
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'ervandew/supertab'
-Plugin 'valloric/YouCompleteMe'
+Plug 'vim-scripts/YankRing.vim'
+" Plug 'othree/yajs.vim'
+Plug 'jelera/vim-javascript-syntax'
+Plug 'othree/javascript-libraries-syntax.vim'
+Plug 'ervandew/supertab'
+" pip3 install neovim && pip3 install --upgrade neovim
+" https://www.gregjs.com/vim/2016/neovim-deoplete-jspc-ultisnips-and-tern-a-config-for-kickass-autocompletion/
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'SirVer/ultisnips'
+" Plug 'honza/vim-snippets'
+Plug 'tran/vim-snippets'
+" make sure to npm install inside this plugin
+Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
+Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 " snippet engine
-" Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
 " ctags remember to install on systeM
 " ctags . - to generate ctags
 " C-] to go to def, C-t to go back
-Plugin 'craigemery/vim-autotag'
+Plug 'craigemery/vim-autotag'
 " \si
 " ctrl+j to jump to next block
-Plugin 'WolfgangMehner/bash-support'
+Plug 'WolfgangMehner/bash-support'
 " fast html/css coding <c-y>,
 " https://raw.githubusercontent.com/mattn/emmet-vim/master/TUTORIAL
-Plugin 'mattn/emmet-vim'
+Plug 'mattn/emmet-vim'
 " help search files
-Plugin 'mhinz/vim-grepper'
+Plug 'mhinz/vim-grepper'
 " unite vim interfaces?
-Plugin 'Shougo/denite.nvim'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'w0rp/ale'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'tpope/vim-obsession'
-call vundle#end()
-filetype plugin indent on
-" end vundle
+Plug 'Shougo/denite.nvim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'w0rp/ale'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-obsession'
+Plug 'easymotion/vim-easymotion'
+
+call plug#end()
+" end
 
