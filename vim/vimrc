@@ -81,6 +81,10 @@ set smartcase
 " keep undo across buffer
 set hidden
 
+inoremap jk <Esc>
+
+" autosave on focus lost
+:au FocusLost * :wa
 "-------------------------------------------------------------------------------
 " Plugin Settings
 "-------------------------------------------------------------------------------
@@ -158,8 +162,6 @@ let g:python2_host_prog = '/usr/local/bin/python'
 let g:python3_host_prog = '/usr/local/bin/python3'
 let g:deoplete#enable_at_startup = 1
 
-inoremap jk <Esc>
-
 " deoplete
 "Add extra filetypes
 let g:deoplete#sources#ternjs#filetypes = [
@@ -191,15 +193,18 @@ set completeopt-=preview
 " ale
 nmap <silent> <Leader>N <Plug>(ale_previous_wrap)
 nmap <silent> <Leader>n <Plug>(ale_next_wrap)
-" let g:ale_fixers = {}
-" let g:ale_fixers['javascript'] = ['prettier-eslint']
-" let g:ale_fix_on_save = 1
+let g:ale_fixers = {}
+let g:ale_fixers['javascript'] = ['eslint']
+let g:ale_fix_on_save = 1
 
 " to resync syntax highlighting https://github.com/posva/vim-vue/issues/76
 autocmd FileType vue syntax sync fromstart
 
 "autosave
 let g:auto_save = 1  " enable AutoSave on Vim startup
+
+" vim-go
+let g:go_fmt_command = "goimports"
 
 "-------------------------------------------------------------------------------
 " vim-plug plugins
@@ -277,7 +282,6 @@ Plug 'w0rp/ale'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-obsession'
 Plug 'easymotion/vim-easymotion'
-Plug '907th/vim-auto-save'
 
 call plug#end()
 " end
