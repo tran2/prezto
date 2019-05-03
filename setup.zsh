@@ -31,6 +31,10 @@ if [ os="Ubuntu" ]; then
   sudo apt-get install fonts-powerline -y
 else
   # TODO: check macos
+  # install brew
+  # install neovim
+  brew install ripgrep
+  brew install the_silver_searcher
   echo "Installing powerline fonts from git"
   git clone https://github.com/powerline/fonts.git "${ZDOTDIR:-$HOME}/fonts
   "${ZDOTDIR:-$HOME}/fonts/install.sh

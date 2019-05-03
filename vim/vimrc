@@ -43,7 +43,8 @@ set expandtab
 set textwidth=80
 set colorcolumn=+1
 set formatoptions=qrn1
-highlight ColorColumn ctermbg=3
+highlight ColorColumn ctermbg=4
+highlight Search ctermfg=17 ctermbg=14
 
 " numbers
 set number
@@ -61,6 +62,8 @@ set splitright
 
 set switchbuf=usetab,newtab
 syntax on
+" either dark or light
+set background=light
 
 " display whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
@@ -206,6 +209,17 @@ let g:auto_save = 1  " enable AutoSave on Vim startup
 " vim-go
 let g:go_fmt_command = "goimports"
 
+" nvim-typescript
+map <C-g> :TSDef<CR>
+
+" CamelCaseMotion
+map <silent> w <Plug>CamelCaseMotion_w
+map <silent> b <Plug>CamelCaseMotion_b
+map <silent> e <Plug>CamelCaseMotion_e
+sunmap w
+sunmap b
+sunmap e
+
 "-------------------------------------------------------------------------------
 " vim-plug plugins
 "-------------------------------------------------------------------------------
@@ -265,7 +279,7 @@ Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 " ctags remember to install on systeM
 " ctags . - to generate ctags
 " C-] to go to def, C-t to go back
-Plug 'craigemery/vim-autotag'
+" Plug 'craigemery/vim-autotag'
 " \si
 " ctrl+j to jump to next block
 Plug 'WolfgangMehner/bash-support'
@@ -282,7 +296,11 @@ Plug 'w0rp/ale'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-obsession'
 Plug 'easymotion/vim-easymotion'
+" typescript
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'lifepillar/vim-solarized8'
+Plug 'bkad/CamelCaseMotion'
 
 call plug#end()
 " end
-
