@@ -3,13 +3,13 @@
 " from thoughtbot
 " :verbose imap <tab>
 
-" so that yy, D, P will work with clipboard! 
+" so that yy, D, P will work with clipboard!
 set clipboard=unnamed
 
 let mapleader = " "
 " map Leader to plugin since it uses <Leader><Leader> by default
 map <Leader> <Plug>(easymotion-prefix)
-" switch between last buffer and current buffer by double tap space 
+" switch between last buffer and current buffer by double tap space
 map <leader><leader> <c-^>
 
 " Y = Yank to EOL like C and D
@@ -30,7 +30,7 @@ set autowrite
 
 set ruler
 set laststatus=2
-set rulerformat=%l\:%c 
+set rulerformat=%l\:%c
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l\:%c%V%)
 
 set tabstop=2
@@ -134,11 +134,11 @@ let g:fzf_action = {
 let g:fzf_tags_command = 'ctags -R'
 
 
-" m - meta key 
+" m - meta key
 let g:yankring_replace_n_pkey = '<m-p>'
 let g:yankring_replace_n_nkey = '<m-n>'
 
-" let g:SuperTabDefaultCompletionType = '<C-n>'
+let g:SuperTabDefaultCompletionType = '<C-n>'
 
 " js syntax
 let g:used_javascript_libs = 'jasmine,chai,react'

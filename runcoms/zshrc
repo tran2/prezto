@@ -22,6 +22,7 @@ export DEFAULT_USER=`whoami`
 source "${ZDOTDIR:-$HOME}/.zshrc.local"
 
 alias vi="nvim"
+alias spacemacs="/usr/local/Cellar/emacs-plus/26.2/bin/emacs"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -37,3 +38,5 @@ if [ -f '/Users/trantu/Downloads/google-cloud-sdk/path.zsh.inc' ]; then source '
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/trantu/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/trantu/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+export PATH="/usr/local/opt/libxml2/bin:$PATH"
+export PATH="/usr/local/Cellar/libxml2/bin:$PATH"

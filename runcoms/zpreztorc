@@ -41,7 +41,8 @@ zstyle ':prezto:load' pmodule \
   'autosuggestions' \
   'fasd' \
   'tmux' \
-  'prompt'
+  'prompt' \
+  'git'
 
 #
 # Autosuggestions
