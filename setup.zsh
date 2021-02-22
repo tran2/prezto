@@ -1,11 +1,17 @@
 #!/bin/zsh
 # set zsh as default shell
-echo "Setting zsh as default"
-chsh -s $(which zsh)
+STR = grep "^$USER" /etc/passwd
+SUB = 'zsh'
+if [[ "$STR" == *"$SUB"* ]]; then
+  echo "zsh already default"
+else
+  echo "Setting zsh as default"
+  chsh -s $(which zsh)
+fi
 
 echo "Linking dotfiles"
 
-#setopt EXTENDED_GLOB
+setopt EXTENDED_GLOB
 for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
   ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
 done
@@ -20,16 +26,26 @@ touch $HOME/.zshrc.local;
 
 # $(which zsh)
 
-echo "Installing neovim"
-os=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
-if [ os="Ubuntu" ]; then
-  echo "installing for Ubuntu"
-  sudo add-apt-repository ppa:neovim-ppa/stable -y
-  sudo apt-get update -y
-  sudo apt-get install neovim -y
-  echo "installing powerline fonts"
-  sudo apt-get install fonts-powerline -y
-else
+echo "Installing dependencies"
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  os=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+  if [ os="Ubuntu" ]; then
+    echo "installing for Ubuntu"
+    echo "attempting to install python"
+    sudo apt-get install python python3 -y
+    echo "attempting to install neovim"
+    sudo apt-get install neovim python-neovim python3-neovim -y
+    echo "installing powerline fonts"
+    sudo apt-get install fonts-powerline -y
+    echo "attempting to install nvm"
+    sudo apt-get install curl -y
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+
+    echo "install ripgrep, ag, xsel"
+    sudo apt install ripgrep silversearcher-ag xsel -y
+  fi
+elif [[ "$OSTYPE" == "darwin"* ]]; then
+    echo "MacOS"
   # TODO: check macos
   # install brew
   # install neovim
@@ -40,11 +56,16 @@ else
   "${ZDOTDIR:-$HOME}/fonts/install.sh
 fi
 
-echo "Adding Vundle for vim and plugins"
-git clone https://github.com/VundleVim/Vundle.vim.git "${ZDOTDIR:-$HOME}/.vim/bundle/Vundle.vim"
-vim +PluginInstall +qall
+echo "Adding vimplug for vim and plugins"
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-"${ZDOTDIR:-$HOME}"/install_tmux.zsh
+echo "adding tmux"
+"${ZDOTDIR:-$HOME}"/.zprezto/install_tmux.zsh
+git clone https://github.com/tmux-plugins/tpm "${ZDOTDIR:-$HOME}"/.tmux/plugins/tpm
+
+echo "Please do nvm install <node-version>"
+echo "Done! Check if there are errors, else reload the terminal for changes"
 
 
 

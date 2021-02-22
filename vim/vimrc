@@ -5,6 +5,8 @@
 
 " so that yy, D, P will work with clipboard!
 set clipboard=unnamed
+" for ubuntu
+set clipboard+=unnamedplus
 
 let mapleader = " "
 " map Leader to plugin since it uses <Leader><Leader> by default
