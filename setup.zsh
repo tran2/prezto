@@ -48,12 +48,14 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
     echo "MacOS"
   # TODO: check macos
   # install brew
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   # install neovim
+  brew install neovim
   brew install ripgrep
   brew install the_silver_searcher
   echo "Installing powerline fonts from git"
-  git clone https://github.com/powerline/fonts.git "${ZDOTDIR:-$HOME}/fonts
-  "${ZDOTDIR:-$HOME}/fonts/install.sh
+  git clone https://github.com/powerline/fonts.git "${ZDOTDIR:-$HOME}/fonts"
+  ${ZDOTDIR:-$HOME}/fonts/install.sh
 fi
 
 echo "Adding vimplug for vim and plugins"

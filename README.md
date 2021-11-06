@@ -18,6 +18,7 @@ version is 4.3.11.
 2. Clone the repository:
 
    ```console
+   git clone --recursive git@github.com:tran2/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
    git clone --recursive https://github.com/tran2/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
    ```
 

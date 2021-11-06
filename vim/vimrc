@@ -6,7 +6,7 @@
 " so that yy, D, P will work with clipboard!
 set clipboard=unnamed
 " for ubuntu
-set clipboard+=unnamedplus
+" set clipboard+=unnamedplus
 
 let mapleader = " "
 " map Leader to plugin since it uses <Leader><Leader> by default
@@ -212,7 +212,7 @@ let g:auto_save = 1  " enable AutoSave on Vim startup
 let g:go_fmt_command = "goimports"
 
 " nvim-typescript
-map <C-g> :TSDef<CR>
+" map <C-g> :TSDef<CR>
 
 " CamelCaseMotion
 map <silent> w <Plug>CamelCaseMotion_w
@@ -262,21 +262,21 @@ Plug 'tomtom/tcomment_vim'
 " TODO: add short key to execute YRShow
 Plug 'vim-scripts/YankRing.vim'
 " Plug 'othree/yajs.vim'
-Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html', 'vue'] }
+" Plug 'pangloss/vim-javascript', { 'for': ['javascript', 'javascript.jsx', 'html', 'vue'] }
 " Plug 'jelera/vim-javascript-syntax'
 " Plug 'othree/javascript-libraries-syntax.vim'
 Plug 'ervandew/supertab'
 " pip3 install neovim && pip3 install --upgrade neovim
 " https://www.gregjs.com/vim/2016/neovim-deoplete-jspc-ultisnips-and-tern-a-config-for-kickass-autocompletion/
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-go', { 'for': ['go'], 'do': 'make' }
-Plug 'SirVer/ultisnips'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'zchee/deoplete-go', { 'for': ['go'], 'do': 'make' }
+" Plug 'SirVer/ultisnips'
 " Plug 'honza/vim-snippets'
-Plug 'tran2/vim-snippets'
+" Plug 'tran2/vim-snippets'
 " make sure to npm install inside this plugin
-Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
-Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
-Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
+" Plug 'ternjs/tern_for_vim', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install' }
+" Plug 'carlitux/deoplete-ternjs', { 'for': ['javascript', 'javascript.jsx'], 'do': 'npm install -g tern' }
+" Plug 'othree/jspc.vim', { 'for': ['javascript', 'javascript.jsx'] }
 " snippet engine
 " ctags remember to install on systeM
 " ctags . - to generate ctags
@@ -299,7 +299,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-obsession'
 Plug 'easymotion/vim-easymotion'
 " typescript
-Plug 'HerringtonDarkholme/yats.vim'
+" Plug 'HerringtonDarkholme/yats.vim'
 " Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 Plug 'lifepillar/vim-solarized8'
 Plug 'bkad/CamelCaseMotion'
