@@ -241,7 +241,7 @@ Plug 'christoomey/vim-run-interactive'
 " Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'fatih/vim-go'
+" Plug 'fatih/vim-go'
 " Plug 'janko-m/vim-test'
 Plug 'pbrisbin/vim-mkdir'
 Plug 'posva/vim-vue'
@@ -300,7 +300,7 @@ Plug 'tpope/vim-obsession'
 Plug 'easymotion/vim-easymotion'
 " typescript
 Plug 'HerringtonDarkholme/yats.vim'
-Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+" Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 Plug 'lifepillar/vim-solarized8'
 Plug 'bkad/CamelCaseMotion'
 
