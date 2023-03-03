@@ -1,9 +1,19 @@
 #!/bin/zsh
-# set zsh as default shell
-STR = grep "^$USER" /etc/passwd
-SUB = 'zsh'
-if [[ "$STR" == *"$SUB"* ]]; then
-  echo "zsh already default"
+
+# Define color codes
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No color
+
+function print_message() {
+    MESSAGE=$1
+    COLOR=$2
+    printf "${COLOR}${MESSAGE}${NC}\n"
+}
+
+# check andd set zsh as default shell
+if [ "$SHELL" = "/bin/zsh" ]; then
+  print_message "zsh already default" $GREEN
 else
   echo "Setting zsh as default"
   chsh -s $(which zsh)
@@ -45,22 +55,35 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     sudo apt install ripgrep silversearcher-ag xsel -y
   fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
-    echo "MacOS"
-  # TODO: check macos
+  print_message "MacOS"
+
   # install brew
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  if [[ $(command -v brew) == "" ]]; then
+    print_message "Homebrew is not installed. Installing now..." $GREEN
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || {
+      print_message "Homebrew installation failed." $RED
+      exit 1
+    }
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+    source ~/.zprofile
+    print_message "Homebrew installation complete." $GREEN
+  else
+    print_message "Homebrew is already installed." $GREEN
+  fi
+
   # install neovim
-  brew install neovim
+  brew install neovim || { print_message "neovim install failed" $RED }
   brew install ripgrep
   brew install the_silver_searcher
-  echo "Installing powerline fonts from git"
+  print_message "Installing powerline fonts from git"
   git clone https://github.com/powerline/fonts.git "${ZDOTDIR:-$HOME}/fonts"
   ${ZDOTDIR:-$HOME}/fonts/install.sh
 fi
 
-echo "Adding vimplug for vim and plugins"
+print_message "Adding vimplug for vim and plugins"
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+print_message "Make sure to install the plugs (might need nodejs)"
 
 echo "adding tmux"
 "${ZDOTDIR:-$HOME}"/.zprezto/install_tmux.zsh
