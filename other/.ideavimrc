@@ -1,0 +1,117 @@
+" so that yy, D, P will work with clipboard!
+set clipboard=unnamed
+let mapleader = " "
+inoremap jk <Esc>
+
+""" Plugins  --------------------------------
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-surround'
+" Plug 'vim-scripts/argtextobj.vim'
+
+" Type s and two chars to start sneaking in forward direction
+" Type S and two chars to start sneaking in backward direction
+" Type ; or , to proceed with sneaking just as if you were using f or t commands
+set sneak
+set surround
+" bind to mc, mx, mp
+set multiple-cursors
+set commentary
+" d(elete), c(hange), v(select)
+" 'daa'(delete-an-argument) 'cia'(change-inner-argument) 'via'(select-inner-argument)
+set argtextobj
+" <l><l>w / b / t , <l><l> f/F{char} to find
+set easymotion
+set textobj-entire
+set ReplaceWithRegister
+""" Plugin settings -------------------------
+let g:argtextobj_pairs="[:],(:),<:>"
+
+""" Common settings -------------------------
+set showmode
+set so=5
+set incsearch
+set nu
+
+set backspace=indent,eol,start
+set autoindent
+set nofoldenable
+set nostartofline
+set tabstop=2
+set softtabstop=2
+set shiftwidth=4
+set shiftround
+set expandtab
+" searches
+set hlsearch
+" ignore cases unless caps
+set ignorecase
+set smartcase
+
+set clipboard+=unnamed
+set clipboard+=ideaput
+
+""" Idea specific settings ------------------
+" set ideajoin
+" set ideastatusicon=gray
+" set idearefactormode=keep
+
+""" Mappings --------------------------------
+nnoremap \e :e ~/.ideavimrc<CR>
+nnoremap \r :action IdeaVim.ReloadVimRc.reload<CR>
+
+" switch between last buffer and current buffer by double tap space
+map <C-p> <c-6>
+
+" Y = Yank to EOL like C and D
+map Y y$
+
+" Ctrl + jkhl to move around windows (now using plugin for this)
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+
+" Multiple cursors
+map mc <A-n>
+map mx <A-x>
+map mp <A-p>
+
+" map <leader>e <Plug>(easymotion-s)
+" map <leader>f <Plug>(easymotion-f)
+map ge <Action>(ShowErrorDescription)
+map gh <Action>(QuickJavaDoc)
+
+map <leader>dd <Action>(Debug)
+map <leader>dc <Action>(DebugClass)
+map <leader>b <Action>(ToggleLineBreakpoint)
+map <leader>rr <Action>(Run)
+map <leader>rc <Action>(RunClass)
+map <leader>c <Action>(Stop)
+map <leader>z <Action>(ToggleDistractionFreeMode)
+map <leader>fc <Action>(ReformatCode)
+map <leader>h <Action>(Vcs.ShowTabbedFileHistory)
+
+" Navigations
+map <leader>o <Action>(FileStructurePopup)
+map <leader>sl <Action>(SelectInProjectView)
+map <S-Space> <Action>(GotoNextError)
+nnoremap <leader>mt :action MoveEditorToOppositeTabGroup<CR>
+
+" Search
+map <leader>sf <Action>(GotoFile)
+map <M-p> <Action>(GotoFile)
+map <leader>sc <Action>(GotoClass)
+map <leader>sa <Action>(GotoAction)
+map <leader>ff <Action>(FindInPath)
+
+" Refactor
+map <leader>em <Action>(ExtractMethod)
+map <leader>pu <Action>(Refactorings.QuickListPopupAction)
+" Ctrl-Backspace to unwrap
+map <leader>w <Action>(SurroundWith)
+map <leader>cn <Action>(RenameElement)
+
+map <leader>a <Action>(Annotate)
+
+
