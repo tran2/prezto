@@ -51,8 +51,10 @@ zstyle ':prezto:load' pmodule \
 # Autosuggestions
 #
 
+# Enable highlighting
+zstyle ':prezto:module:autosuggestions' color 'yes'
 # Set the query found color.
-# zstyle ':prezto:module:autosuggestions:color' found ''
+zstyle ':prezto:module:autosuggestions:color' found ''
 
 #
 # Completions

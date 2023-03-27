@@ -32,6 +32,8 @@ mkdir "${ZDOTDIR:-$HOME}/.config/nvim"
 ln -s "${ZDOTDIR:-$HOME}/.zprezto/vim/vimrc" "${ZDOTDIR:-$HOME}/.config/nvim/init.vim"
 ln -s "${ZDOTDIR:-$HOME}/.zprezto/ctags/ctags" "${ZDOTDIR:-$HOME}/.ctags"
 
+ln -s "${ZDOTDIR:-$HOME}/.zprezto/other/.ideavimrc" "${ZDOTDIR:-$HOME}/.ideavimrc"
+
 touch $HOME/.zshrc.local;
 
 # $(which zsh)

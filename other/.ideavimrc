@@ -66,6 +66,18 @@ map <C-p> <c-6>
 " Y = Yank to EOL like C and D
 map Y y$
 
+" Navigations
+" switch between last buffer and current buffer
+map <C-p> <c-6>
+
+nmap <leader>tn <Action>(NextTab)
+nmap <leader>tp <Action>(PreviousTab)
+map <leader>o <Action>(FileStructurePopup)
+map <leader>sl <Action>(SelectInProjectView)
+map <S-Space> <Action>(GotoNextError)
+nnoremap <leader>mt :action MoveEditorToOppositeTabGroup<CR>
+map <leader>lc <Action>(JumpToLastChange)
+
 " Ctrl + jkhl to move around windows (now using plugin for this)
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -91,12 +103,6 @@ map <leader>c <Action>(Stop)
 map <leader>z <Action>(ToggleDistractionFreeMode)
 map <leader>fc <Action>(ReformatCode)
 map <leader>h <Action>(Vcs.ShowTabbedFileHistory)
-
-" Navigations
-map <leader>o <Action>(FileStructurePopup)
-map <leader>sl <Action>(SelectInProjectView)
-map <S-Space> <Action>(GotoNextError)
-nnoremap <leader>mt :action MoveEditorToOppositeTabGroup<CR>
 
 " Search
 map <leader>sf <Action>(GotoFile)
