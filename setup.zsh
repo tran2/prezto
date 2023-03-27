@@ -29,7 +29,9 @@ ln -s "${ZDOTDIR:-$HOME}/.zprezto/tmux/tmux.conf" "${ZDOTDIR:-$HOME}/.tmux.conf"
 ln -s "${ZDOTDIR:-$HOME}/.zprezto/vim/vimrc" "${ZDOTDIR:-$HOME}/.vimrc"
 # for neovim
 mkdir "${ZDOTDIR:-$HOME}/.config/nvim"
-ln -s "${ZDOTDIR:-$HOME}/.zprezto/vim/vimrc" "${ZDOTDIR:-$HOME}/.config/nvim/init.vim"
+# ln -s "${ZDOTDIR:-$HOME}/.zprezto/vim/vimrc" "${ZDOTDIR:-$HOME}/.config/nvim/init.vim"
+git clone https://github.com/tran2/kickstart.nvim.git "${ZDOTDIR:-$HOME}/.config/nvim"
+
 ln -s "${ZDOTDIR:-$HOME}/.zprezto/ctags/ctags" "${ZDOTDIR:-$HOME}/.ctags"
 
 ln -s "${ZDOTDIR:-$HOME}/.zprezto/other/.ideavimrc" "${ZDOTDIR:-$HOME}/.ideavimrc"
