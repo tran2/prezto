@@ -30,7 +30,7 @@ ln -s "${ZDOTDIR:-$HOME}/.zprezto/vim/vimrc" "${ZDOTDIR:-$HOME}/.vimrc"
 # for neovim
 mkdir "${ZDOTDIR:-$HOME}/.config/nvim"
 # ln -s "${ZDOTDIR:-$HOME}/.zprezto/vim/vimrc" "${ZDOTDIR:-$HOME}/.config/nvim/init.vim"
-git clone https://github.com/tran2/kickstart.nvim.git "${ZDOTDIR:-$HOME}/.config/nvim"
+git clone https://github.com/tran2/LayVimConfig.git "${ZDOTDIR:-$HOME}/.config/nvim"
 
 ln -s "${ZDOTDIR:-$HOME}/.zprezto/ctags/ctags" "${ZDOTDIR:-$HOME}/.ctags"
 
@@ -80,14 +80,15 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   brew install ripgrep
   brew install the_silver_searcher
   print_message "Installing powerline fonts from git"
+  # TODO: install nerdfont
   git clone https://github.com/powerline/fonts.git "${ZDOTDIR:-$HOME}/fonts"
   ${ZDOTDIR:-$HOME}/fonts/install.sh
 fi
 
-print_message "Adding vimplug for vim and plugins"
-sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-print_message "Make sure to install the plugs (might need nodejs)"
+# print_message "Adding vimplug for vim and plugins"
+# sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+#        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+# print_message "Make sure to install the plugs (might need nodejs)"
 
 echo "adding tmux"
 "${ZDOTDIR:-$HOME}"/.zprezto/install_tmux.zsh
