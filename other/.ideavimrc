@@ -31,7 +31,6 @@ let g:argtextobj_pairs="[:],(:),<:>"
 set showmode
 set so=5
 set incsearch
-set nu
 
 set backspace=indent,eol,start
 set autoindent
@@ -50,6 +49,16 @@ set smartcase
 
 set clipboard+=unnamed
 set clipboard+=ideaput
+
+""" relative nubmer""
+set rnu
+""" Number """
+"set number
+"augroup numbertoggle
+"  autocmd!
+"  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+"  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+"augroup END
 
 """ Idea specific settings ------------------
 " set ideajoin
@@ -105,19 +114,21 @@ map <leader>fc <Action>(ReformatCode)
 map <leader>h <Action>(Vcs.ShowTabbedFileHistory)
 
 " Search
-map <leader>sf <Action>(GotoFile)
+map <leader>ff <Action>(GotoFile)
 map <M-p> <Action>(GotoFile)
 map <leader>sc <Action>(GotoClass)
 map <leader>sa <Action>(GotoAction)
-map <leader>ff <Action>(FindInPath)
+map <leader>ss <Action>(GoToSymbol)
+map <leader>sg <Action>(FindInPath)
 
-" Refactor
-map <leader>em <Action>(ExtractMethod)
-map <leader>pu <Action>(Refactorings.QuickListPopupAction)
+" Refactor (Code Action)
+map <leader>ca <Action>(Refactorings.QuickListPopupAction)
+map <leader>ce <Action>(ExtractMethod)
+map <leader>cs <Action>(SurroundWith)
+" code unwrap"
 " Ctrl-Backspace to unwrap
-map <leader>w <Action>(SurroundWith)
+map <leader>cu <Action>(Unwrap)
 map <leader>cn <Action>(RenameElement)
-
 map <leader>a <Action>(Annotate)
 
 

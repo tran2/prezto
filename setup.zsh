@@ -30,7 +30,7 @@ ln -s "${ZDOTDIR:-$HOME}/.zprezto/vim/vimrc" "${ZDOTDIR:-$HOME}/.vimrc"
 # for neovim
 mkdir "${ZDOTDIR:-$HOME}/.config/nvim"
 # ln -s "${ZDOTDIR:-$HOME}/.zprezto/vim/vimrc" "${ZDOTDIR:-$HOME}/.config/nvim/init.vim"
-git clone https://github.com/tran2/LayVimConfig.git "${ZDOTDIR:-$HOME}/.config/nvim"
+git clone https://github.com/tran2/LazyVimConfig.git "${ZDOTDIR:-$HOME}/.config/nvim"
 
 ln -s "${ZDOTDIR:-$HOME}/.zprezto/ctags/ctags" "${ZDOTDIR:-$HOME}/.ctags"
 
