@@ -7,6 +7,9 @@ inoremap jk <Esc>
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+" https://github.com/JetBrains/ideavim/wiki/NERDTree-support "
+Plug 'preservim/nerdtree'
+Plug 'vim-scripts/ReplaceWithRegister'
 " Plug 'vim-scripts/argtextobj.vim'
 
 " Type s and two chars to start sneaking in forward direction
@@ -24,6 +27,9 @@ set argtextobj
 set easymotion
 set textobj-entire
 set ReplaceWithRegister
+" type f or F"
+set quickscope
+
 """ Plugin settings -------------------------
 let g:argtextobj_pairs="[:],(:),<:>"
 
@@ -51,14 +57,8 @@ set clipboard+=unnamed
 set clipboard+=ideaput
 
 """ relative nubmer""
-set rnu
-""" Number """
-"set number
-"augroup numbertoggle
-"  autocmd!
-"  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-"  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
-"augroup END
+set relativenumber
+set number
 
 """ Idea specific settings ------------------
 " set ideajoin
@@ -80,6 +80,9 @@ map Y y$
 map <C-p> <c-6>
 
 nmap <leader>tn <Action>(NextTab)
+nmap <leader>tp <Action>(PreviousTab)
+nmap <S-l> <Action>(NextTab)
+nmap <S-h> <Action>(PreviousTab)
 nmap <leader>tp <Action>(PreviousTab)
 map <leader>o <Action>(FileStructurePopup)
 map <leader>sl <Action>(SelectInProjectView)
@@ -103,6 +106,10 @@ map mp <A-p>
 map ge <Action>(ShowErrorDescription)
 map gh <Action>(QuickJavaDoc)
 
+map <leader>e :NERDTree<CR>
+map <leader>nc :NERDTreeClose<CR>
+map <leader>nc :NERDTreeFind<CR>
+
 map <leader>dd <Action>(Debug)
 map <leader>dc <Action>(DebugClass)
 map <leader>b <Action>(ToggleLineBreakpoint)
@@ -120,6 +127,7 @@ map <leader>sc <Action>(GotoClass)
 map <leader>sa <Action>(GotoAction)
 map <leader>ss <Action>(GoToSymbol)
 map <leader>sg <Action>(FindInPath)
+map <leader>sr <Action>(ReplaceInPath)
 
 " Refactor (Code Action)
 map <leader>ca <Action>(Refactorings.QuickListPopupAction)
