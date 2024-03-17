@@ -30,7 +30,7 @@ ln -s "${ZDOTDIR:-$HOME}/.zprezto/vim/vimrc" "${ZDOTDIR:-$HOME}/.vimrc"
 # for neovim
 mkdir "${ZDOTDIR:-$HOME}/.config/nvim"
 # ln -s "${ZDOTDIR:-$HOME}/.zprezto/vim/vimrc" "${ZDOTDIR:-$HOME}/.config/nvim/init.vim"
-git clone https://github.com/tran2/LazyVimConfig.git "${ZDOTDIR:-$HOME}/.config/nvim"
+git clone git@github.com:tran2/LazyVimConfig.git "${ZDOTDIR:-$HOME}/.config/nvim"
 
 ln -s "${ZDOTDIR:-$HOME}/.zprezto/ctags/ctags" "${ZDOTDIR:-$HOME}/.ctags"
 
@@ -80,9 +80,12 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   brew install ripgrep
   brew install the_silver_searcher
   print_message "Installing powerline fonts from git"
-  # TODO: install nerdfont
   git clone https://github.com/powerline/fonts.git "${ZDOTDIR:-$HOME}/fonts"
   ${ZDOTDIR:-$HOME}/fonts/install.sh
+
+  # install nerdfont
+  brew tap homebrew/cask-fonts
+  brew install font-hack-nerd-font font-jetbrains-mono-nerd-font
 fi
 
 # print_message "Adding vimplug for vim and plugins"
