@@ -22,6 +22,9 @@ export DEFAULT_USER=`whoami`
 source "${ZDOTDIR:-$HOME}/.zshrc.local"
 
 alias vi="nvim"
+alias spacemacs="/usr/local/Cellar/emacs-plus/26.2/bin/emacs"
+alias vpk="nvim package.json"
+alias gcos="git branch | grep -v '^\*' | fzf --height=20% --reverse --info=inline | xargs git checkout"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

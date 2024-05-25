@@ -57,7 +57,7 @@ set clipboard+=unnamed
 set clipboard+=ideaput
 
 """ relative nubmer""
-set relativenumber
+" set relativenumber
 set number
 
 """ Idea specific settings ------------------
@@ -85,7 +85,11 @@ nmap <S-l> <Action>(NextTab)
 nmap <S-h> <Action>(PreviousTab)
 nmap <leader>tp <Action>(PreviousTab)
 map <leader>o <Action>(FileStructurePopup)
+
 map <leader>sl <Action>(SelectInProjectView)
+map <leader>st <Action>(GotoTest)
+
+
 map <S-Space> <Action>(GotoNextError)
 nnoremap <leader>mt :action MoveEditorToOppositeTabGroup<CR>
 map <leader>lc <Action>(JumpToLastChange)
