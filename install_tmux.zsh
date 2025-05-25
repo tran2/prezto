@@ -1,6 +1,7 @@
 #!/bin/zsh
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    if [ $(awk -F= '/^NAME/{print $2}' /etc/os-release)="Ubuntu" ]; then
+    os=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+    if [ os="Ubuntu" ] || [ os="Linux Mint" ]; then
         echo "Installing Tmux for Ubuntu"
         sudo apt install tmux
         tmux -V

@@ -58,7 +58,7 @@ set clipboard+=unnamed
 set clipboard+=ideaput
 
 """ relative nubmer""
-" set relativenumber
+set relativenumber
 set number
 
 """ Idea specific settings ------------------
@@ -131,7 +131,7 @@ map <leader>ff <Action>(GotoFile)
 map <M-p> <Action>(GotoFile)
 map <leader>sc <Action>(GotoClass)
 map <leader>sa <Action>(GotoAction)
-map <leader>ss <Action>(GoToSymbol)
+map <leader>fs <Action>(GoToSymbol)
 map <leader>sg <Action>(FindInPath)
 map <leader>sr <Action>(ReplaceInPath)
 map <silent> <Leader>sw viw:action FindInPath<CR><Esc>
@@ -148,19 +148,17 @@ map <leader>cu <Action>(Unwrap)
 map <leader>cn <Action>(RenameElement)
 map <leader>a <Action>(Annotate)
 
-" Harpoon keybindings
-" Setting harpoons
-nnoremap <leader><leader>1 :action SetHarpoon1<CR>
-nnoremap <leader><leader>2 :action SetHarpoon2<CR>
-nnoremap <leader><leader>3 :action SetHarpoon3<CR>
-nnoremap <leader><leader>4 :action SetHarpoon4<CR>
-nnoremap <leader><leader>5 :action SetHarpoon5<CR>
-nnoremap <leader>u :action ShowHarpoon<CR>
 
-" Navigationing harpoons
+" jump
+map <leader>js <Action>(JumpToSource)
+map <leader>jt <Action>(GotoTest)
+
+" Navigation harpoons
 noremap <leader>1 :action GotoHarpoon1<CR>
 noremap <leader>2 :action GotoHarpoon2<CR>
 noremap <leader>3 :action GotoHarpoon3<CR>
 noremap <leader>4 :action GotoHarpoon4<CR>
 noremap <leader>5 :action GotoHarpoon5<CR>
+nnoremap <leader>H :action ShowHarpoon<CR>
+
 "END Harpoon keybindings

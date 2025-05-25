@@ -43,20 +43,20 @@ touch $HOME/.zshrc.local;
 echo "Installing dependencies"
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
   os=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
-  if [ os="Ubuntu" ]; then
+  if [ os="Ubuntu" ] || [ os="Linux Mint" ]; then
     echo "installing for Ubuntu"
     echo "attempting to install python"
-    sudo apt-get install python python3 -y
+    sudo apt-get install python3 -y
     echo "attempting to install neovim"
-    sudo apt-get install neovim python-neovim python3-neovim -y
+    sudo apt-get install python3-pynvim -y
     echo "installing powerline fonts"
     sudo apt-get install fonts-powerline -y
     echo "attempting to install nvm"
     sudo apt-get install curl -y
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
     echo "install ripgrep, ag, xsel"
-    sudo apt install ripgrep silversearcher-ag xsel -y
+    sudo apt install fzf ripgrep silversearcher-ag xsel -y
   fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   print_message "MacOS"

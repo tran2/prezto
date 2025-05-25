@@ -35,3 +35,5 @@ export NVM_DIR="$HOME/.nvm"
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
+export PATH="/home/tin/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/home/tin/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
