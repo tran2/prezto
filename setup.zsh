@@ -12,7 +12,7 @@ function print_message() {
 }
 
 # check andd set zsh as default shell
-if [ "$SHELL" = "/bin/zsh" ]; then
+if [ "$SHELL" = "/bin/zsh" ] || [ "$SHELL" = "/usr/bin/zsh" ]; then
   print_message "zsh already default" $GREEN
 else
   echo "Setting zsh as default"
@@ -42,13 +42,13 @@ touch $HOME/.zshrc.local;
 
 echo "Installing dependencies"
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  os=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
-  if [ os="Ubuntu" ] || [ os="Linux Mint" ]; then
+  os=$(awk -F= '/^NAME/{print $2}' /etc/os-release | tr -d '"')
+  if [ "$os" = "Ubuntu" ] || [ "$os" = "Linux Mint" ]; then
     echo "installing for Ubuntu"
     echo "attempting to install python"
     sudo apt-get install python3 -y
     echo "attempting to install neovim"
-    sudo apt-get install python3-pynvim -y
+    sudo apt-get install neovim python3-pynvim -y
     echo "installing powerline fonts"
     sudo apt-get install fonts-powerline -y
     echo "attempting to install nvm"
@@ -57,6 +57,18 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 
     echo "install ripgrep, ag, xsel"
     sudo apt install fzf ripgrep silversearcher-ag xsel -y
+  elif [ "$os" = "Fedora Linux" ] || [ "$os" = "Fedora" ]; then
+    echo "installing for Fedora"
+    echo "attempting to install python and neovim"
+    sudo dnf install -y python3 neovim python3-neovim
+    echo "installing powerline fonts"
+    sudo dnf install -y powerline-fonts
+    echo "attempting to install nvm"
+    sudo dnf install -y curl
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+
+    echo "install ripgrep, ag, fzf, xsel"
+    sudo dnf install -y fzf ripgrep the_silver_searcher xsel
   fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   print_message "MacOS"
