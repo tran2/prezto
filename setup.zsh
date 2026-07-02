@@ -23,18 +23,20 @@ echo "Linking dotfiles"
 
 setopt EXTENDED_GLOB
 for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+  ln -sf "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
 done
-ln -s "${ZDOTDIR:-$HOME}/.zprezto/tmux/tmux.conf" "${ZDOTDIR:-$HOME}/.tmux.conf"
-ln -s "${ZDOTDIR:-$HOME}/.zprezto/vim/vimrc" "${ZDOTDIR:-$HOME}/.vimrc"
+ln -sf "${ZDOTDIR:-$HOME}/.zprezto/tmux/tmux.conf" "${ZDOTDIR:-$HOME}/.tmux.conf"
+ln -sf "${ZDOTDIR:-$HOME}/.zprezto/vim/vimrc" "${ZDOTDIR:-$HOME}/.vimrc"
 # for neovim
-mkdir "${ZDOTDIR:-$HOME}/.config/nvim"
+mkdir -p "${ZDOTDIR:-$HOME}/.config/nvim"
 # ln -s "${ZDOTDIR:-$HOME}/.zprezto/vim/vimrc" "${ZDOTDIR:-$HOME}/.config/nvim/init.vim"
 git clone git@github.com:tran2/LazyVimConfig.git "${ZDOTDIR:-$HOME}/.config/nvim"
 
-ln -s "${ZDOTDIR:-$HOME}/.zprezto/ctags/ctags" "${ZDOTDIR:-$HOME}/.ctags"
+ln -sf "${ZDOTDIR:-$HOME}/.zprezto/ctags/ctags" "${ZDOTDIR:-$HOME}/.ctags"
 
-ln -s "${ZDOTDIR:-$HOME}/.zprezto/other/.ideavimrc" "${ZDOTDIR:-$HOME}/.ideavimrc"
+ln -sf "${ZDOTDIR:-$HOME}/.zprezto/other/.ideavimrc" "${ZDOTDIR:-$HOME}/.ideavimrc"
+
+ln -sf "${ZDOTDIR:-$HOME}/.zprezto/other/wezterm.lua" "${ZDOTDIR:-$HOME}/.wezterm.lua"
 
 touch $HOME/.zshrc.local;
 
