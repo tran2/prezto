@@ -15,7 +15,7 @@ config.line_height = 1.05
 
 -- Window
 config.window_background_opacity = 0.98
-config.window_decorations = "RESIZE"
+-- config.window_decorations = "RESIZE"
 config.window_padding = {
 	left = 8,
 	right = 8,

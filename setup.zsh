@@ -38,6 +38,10 @@ ln -sf "${ZDOTDIR:-$HOME}/.zprezto/other/.ideavimrc" "${ZDOTDIR:-$HOME}/.ideavim
 
 ln -sf "${ZDOTDIR:-$HOME}/.zprezto/other/wezterm.lua" "${ZDOTDIR:-$HOME}/.wezterm.lua"
 
+# ghostty
+mkdir -p "${ZDOTDIR:-$HOME}/.config/ghostty"
+ln -sf "${ZDOTDIR:-$HOME}/.zprezto/other/ghostty.config" "${ZDOTDIR:-$HOME}/.config/ghostty/config"
+
 touch $HOME/.zshrc.local;
 
 # $(which zsh)
