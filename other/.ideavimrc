@@ -1,4 +1,5 @@
-" so that yy, D, P will work with clipboard!
+"deavimrc
+"//////// yy, D, P will work with clipboard!
 set clipboard=unnamed
 let mapleader = " "
 inoremap jk <Esc>
@@ -148,6 +149,13 @@ map <leader>cu <Action>(Unwrap)
 map <leader>cn <Action>(RenameElement)
 map <leader>a <Action>(Annotate)
 
+" Harpoon keybindings
+" Setting harpoons
+nnoremap <leader><leader>1 :action SetHarpoon1<CR>
+nnoremap <leader><leader>2 :action SetHarpoon2<CR>
+nnoremap <leader><leader>3 :action SetHarpoon3<CR>
+nnoremap <leader><leader>4 :action SetHarpoon4<CR>
+nnoremap <leader><leader>5 :action SetHarpoon5<CR>
 
 " jump
 map <leader>js <Action>(JumpToSource)
