@@ -62,7 +62,8 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
     echo "install ripgrep, ag, xsel"
-    sudo apt install fzf ripgrep silversearcher-ag xsel -y
+    # note fzf is installed with neovim
+    sudo apt install ripgrep silversearcher-ag xsel -y
   elif [ "$os" = "Fedora Linux" ] || [ "$os" = "Fedora" ]; then
     echo "installing for Fedora"
     echo "attempting to install python and neovim"
