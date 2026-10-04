@@ -11,6 +11,15 @@ function print_message() {
     printf "${COLOR}${MESSAGE}${NC}\n"
 }
 
+# returns 0 (and prints a note) if the command is already available
+function already_installed() {
+    if command -v "$1" >/dev/null 2>&1; then
+        print_message "$1 already installed at $(command -v $1), skipping" $GREEN
+        return 0
+    fi
+    return 1
+}
+
 # check andd set zsh as default shell
 if [ "$SHELL" = "/bin/zsh" ] || [ "$SHELL" = "/usr/bin/zsh" ]; then
   print_message "zsh already default" $GREEN
@@ -42,6 +51,10 @@ ln -sf "${ZDOTDIR:-$HOME}/.zprezto/other/wezterm.lua" "${ZDOTDIR:-$HOME}/.wezter
 mkdir -p "${ZDOTDIR:-$HOME}/.config/ghostty"
 ln -sf "${ZDOTDIR:-$HOME}/.zprezto/other/ghostty.config" "${ZDOTDIR:-$HOME}/.config/ghostty/config"
 
+# herdr
+mkdir -p "${ZDOTDIR:-$HOME}/.config/herdr"
+ln -sf "${ZDOTDIR:-$HOME}/.zprezto/other/herdr.config" "${ZDOTDIR:-$HOME}/.config/herdr/config.toml"
+
 touch $HOME/.zshrc.local;
 
 # $(which zsh)
@@ -54,20 +67,22 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     echo "attempting to install python"
     sudo apt-get install python3 -y
     echo "attempting to install neovim"
-    sudo apt-get install neovim python3-pynvim -y
+    already_installed nvim || sudo apt-get install neovim -y
+    sudo apt-get install python3-pynvim -y
     echo "installing powerline fonts"
     sudo apt-get install fonts-powerline -y
     echo "attempting to install nvm"
     sudo apt-get install curl -y
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
-    echo "install ripgrep, ag, xsel"
-    # note fzf is installed with neovim
+    echo "install ripgrep, ag, fzf, xsel"
     sudo apt install ripgrep silversearcher-ag xsel -y
+    already_installed fzf || sudo apt install fzf -y
   elif [ "$os" = "Fedora Linux" ] || [ "$os" = "Fedora" ]; then
     echo "installing for Fedora"
     echo "attempting to install python and neovim"
-    sudo dnf install -y python3 neovim python3-neovim
+    sudo dnf install -y python3 python3-neovim
+    already_installed nvim || sudo dnf install -y neovim
     echo "installing powerline fonts"
     sudo dnf install -y powerline-fonts
     echo "attempting to install nvm"
@@ -75,7 +90,8 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
 
     echo "install ripgrep, ag, fzf, xsel"
-    sudo dnf install -y fzf ripgrep the_silver_searcher xsel
+    sudo dnf install -y ripgrep the_silver_searcher xsel
+    already_installed fzf || sudo dnf install -y fzf
   fi
 elif [[ "$OSTYPE" == "darwin"* ]]; then
   print_message "MacOS"
@@ -95,7 +111,8 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
   fi
 
   # install neovim
-  brew install neovim || { print_message "neovim install failed" $RED }
+  already_installed nvim || brew install neovim || { print_message "neovim install failed" $RED }
+  already_installed fzf || brew install fzf
   brew install ripgrep
   brew install the_silver_searcher
   print_message "Installing powerline fonts from git"
